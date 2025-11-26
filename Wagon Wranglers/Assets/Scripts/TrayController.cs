@@ -14,7 +14,7 @@ public class TrayController : MonoBehaviour
         // And regular Horizontal and Vertical axes only now track wasd
         float horizontal = Input.GetAxis("HorizontalArrow");
         float vertical = Input.GetAxis("VerticalArrow");
-        
+
         // Converts the vertical input into tilt around the x-axis
         float tiltX = vertical * rotationSpeed * Time.deltaTime;
 
