@@ -32,7 +32,7 @@ This mechanic is unique because while some games have catching falling objects a
 
 ##### **Concept**
 
-The concept is that the player controls a cart that can move around on a flat plane. There are falling objects that the player must run around to collect and store inside the cart. Each item is has weight and friction coefficients that match very closely to real life. Heavy objects are worth more but slow the player down and make balancing harder. There are also bombs that drop that will send items flying out of your cart. 
+The concept is that the player controls a cart that can move around on a flat plane. There are falling objects that the player must run around to collect and store inside the cart. Each item is has weight and friction coefficients that match very closely to real life. Heavy objects are worth more but slow the player down and make balancing harder. There are also bombs that drop that will send items flying out of your cart.
 
 
 
@@ -54,3 +54,10 @@ The game would be single player only, but if we were to add multiplayer, it woul
 
 
 
+### **Feedback Section**
+
+
+
+* Balancing WASD with the arrow keys was wonky to control. Reworking some of the controls will help with this.
+* The pan's friction was too slippery, items fell off way too fast. Changing the friction coefficient on the pan should make item balancing more fair.
+* The pan takes up too much real estate on screen. Zooming out the camera to see more of the landscape should fix this.
