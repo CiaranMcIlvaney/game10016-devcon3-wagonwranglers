@@ -28,6 +28,9 @@ public class CharacterMove : MonoBehaviour
     // Extra horizontal push from the jump pads / the swings
     private Vector3 launchHorizontal = Vector3.zero;
 
+    // If true player cant move
+    public bool isFrozen = false; 
+
     // Called at the start of the game
     void Start()
     {
@@ -38,6 +41,11 @@ public class CharacterMove : MonoBehaviour
     // Called once every frame
     void Update()
     {
+        // If we are in balance mode then skip all movement code
+        if (isFrozen)
+        {
+            return;
+        }
         // ----- MOVEMENT INPUT -----
 
         // Horizontal is A/D or Left and Right arrow keys 

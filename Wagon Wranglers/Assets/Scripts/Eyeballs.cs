@@ -19,6 +19,8 @@ public class Eyeballs : MonoBehaviour
     // Reference to the player
     private GameObject player;
 
+    // If true camera cant look around
+    public bool isFrozen = false;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +32,12 @@ public class Eyeballs : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // If we are in balance mode, dont rotate the camera
+        if (isFrozen)
+        {
+            return;
+        }
+
         // This will make your cursor invisible in the game
         // Press ESC to get cursor back
         Cursor.lockState = CursorLockMode.Locked;

@@ -10,19 +10,30 @@ public class ItemLifetime : MonoBehaviour
     // Timer that will count up only when the item is on the tray
     private float balanceTimer = 0f;
 
-    // Only becomes true when an item is on the tray
+    // Only becomes true when THIS item is currently touching the tray
     private bool itemOnTray = false;
 
     // How many points this item will give to the player if collected
-    [SerializeField] private int pointsValue = 10; 
+    [SerializeField] private int pointsValue = 10;
 
     // Reference to this items rigidbody
     private Rigidbody rb;
+
+    private CharacterMove characterMove;
+    private Eyeballs eyeballs;
+    private TrayController trayController;
+
+    // Tracks how many items TOTAL are currently balancing on the tray
+    private static int activeBalancingItems = 0;
 
     private void Start()
     {
         // Grab the rigidbody when the item spawns
         rb = GetComponent<Rigidbody>();
+
+        characterMove = FindObjectOfType<CharacterMove>();
+        eyeballs = FindObjectOfType<Eyeballs>();
+        trayController = FindObjectOfType<TrayController>();
     }
 
     private void Update()
@@ -39,8 +50,8 @@ public class ItemLifetime : MonoBehaviour
                 // Give the player points
                 ScoreManager.Instance.AddScore(pointsValue);
 
-                // Switch camera back to normal after scoring
-                BalanceCameraSwitcher.Instance.ExitBalanceMode();
+                // This item is done balancing, clean up balance state
+                StopBalancing();
 
                 // Destroy the object since its been collected
                 Destroy(gameObject);
@@ -53,19 +64,16 @@ public class ItemLifetime : MonoBehaviour
         // If an item hits the floor then instantly delete it
         if (collision.collider.CompareTag("Floor"))
         {
-            // Switch camera back to normal if item dropped
-            BalanceCameraSwitcher.Instance.ExitBalanceMode();
-
+            // If it was currently balancing, clean that up first
+            StopBalancing();
             Destroy(gameObject);
+            return;
         }
 
-        // If an item touches the tray than start the balancing timer
+        // If an item touches the tray then start the balancing timer
         if (collision.collider.CompareTag("Tray"))
         {
-            itemOnTray = true;
-
-            // Turn on special balance camera view
-            BalanceCameraSwitcher.Instance.EnterBalanceMode();
+            StartBalancing();
         }
     }
 
@@ -74,11 +82,53 @@ public class ItemLifetime : MonoBehaviour
         // If the item falls off the tray then stop counting and reset the timer to 0
         if (collision.collider.CompareTag("Tray"))
         {
-            itemOnTray = false;
-            balanceTimer = 0f;
+            StopBalancing();
+        }
+    }
 
-            // Back to normal camera if it falls off
-            BalanceCameraSwitcher.Instance.ExitBalanceMode();
+    private void OnDestroy()
+    {
+        // If this gets destroyed while still marked as on the tray make sure to not leave the game stuck in balance mode
+        StopBalancing();
+    }
+
+    private void StartBalancing()
+    {
+        // If already registered as balancing do nothing
+        if (itemOnTray)
+        {
+            return;
+        }
+
+        itemOnTray = true;
+        balanceTimer = 0f;
+
+        // Increase the global count
+        activeBalancingItems++;
+
+        // If this is the first item to start balancing freeze the player and enable mouse tray control
+        if (activeBalancingItems == 1)
+        {
+            characterMove.isFrozen = true;
+            eyeballs.isFrozen = true;
+            trayController.useMouseControl = true;
+        }
+    }
+
+    private void StopBalancing()
+    {
+        itemOnTray = false;
+        balanceTimer = 0f;
+
+        // Reduce global count but never let it go below zero
+        activeBalancingItems = Mathf.Max(0, activeBalancingItems - 1);
+
+        // If there are no more items being balanced unfreeze and leave mouse mode
+        if (activeBalancingItems == 0)
+        {
+            characterMove.isFrozen = false;
+            eyeballs.isFrozen = false;
+            trayController.useMouseControl = false;
         }
     }
 }

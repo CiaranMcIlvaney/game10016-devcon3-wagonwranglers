@@ -8,21 +8,40 @@ public class TrayController : MonoBehaviour
     // How fast the tray rotates when the players tries moving the tray
     [SerializeField] private float rotationSpeed = 0;
 
+    // How fast the tray rotates when using the mouse in balance mode
+    [SerializeField] public float mouseRotationSpeed = 100f;
+
+    // When this is true it ignores the arrow keys and uses the mouse instead
+    public bool useMouseControl = false;
+
     void Update()
     {
-        // Get input from the custom Input Manager axes I made, where horizontal arrow only tracks the arrow key movments
-        // And regular Horizontal and Vertical axes only now track wasd
-        float horizontal = Input.GetAxis("HorizontalArrow");
-        float vertical = Input.GetAxis("VerticalArrow");
+        float tiltX = 0f;
+        float tiltZ = 0f;
 
-        // Converts the vertical input into tilt around the x-axis
-        float tiltX = vertical * rotationSpeed * Time.deltaTime;
+        if (useMouseControl)
+        {
+            // Balance mode use mouse movement 
+            float mouseX = Input.GetAxis("Mouse X");
+            float mouseY = Input.GetAxis("Mouse Y");
 
-        //  Converts the horizontal input into tilt around the z-axis
-        float tiltZ = horizontal * rotationSpeed * Time.deltaTime;
+            // Mouse Y tilts the tray forward/back
+            tiltX = mouseY * mouseRotationSpeed * Time.deltaTime;
 
-        // Applies the rotation to the tray
-        // Space.Self makes the rotation apply to the trays own axis
+            // Mouse X tilts the tray left/right
+            tiltZ = mouseX * mouseRotationSpeed * Time.deltaTime;
+        }
+        else
+        {
+            // Normal mode uses arrow keys
+            float horizontal = Input.GetAxis("HorizontalArrow");
+            float vertical = Input.GetAxis("VerticalArrow");
+
+            tiltX = vertical * rotationSpeed * Time.deltaTime;
+            tiltZ = horizontal * rotationSpeed * Time.deltaTime;
+        }
+
+        // Apply the rotation to the tray
         transform.Rotate(tiltX, 0f, tiltZ, Space.Self);
     }
 }
