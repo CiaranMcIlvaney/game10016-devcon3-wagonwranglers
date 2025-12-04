@@ -4,7 +4,7 @@
 
 ##### **Desired Game Mechanic**
 
-The desired game mechanic is that the player controls a cart and must keep as many randomly falling objects in the cart as they can while quickly trying to catch more.
+The desired game mechanic is that the player controls a pan and must keep as many randomly falling objects in the pan as they can while quickly trying to catch more.
 
 
 
@@ -22,7 +22,7 @@ The intended experience is that the player will feel hectic as they try to balan
 
 ##### **Design Rational**
 
-This mechanic is unique because while some games have catching falling objects as a mechanic, we are shaking it up by making each item falling down as close to real physics as we can. This means the player has to think about the items they're catching. For example, if an anvil and a pillow fall down, the pillow is going to be easier to keep balance in the cart, but the anvil might be more points. The player has to decide what they prioritize: more items but they're light, or fewer items but they're heavier.
+This mechanic is unique because while some games have catching falling objects as a mechanic, we are shaking it up by making each item falling down as close to real physics as we can. This means the player has to think about the items they're catching. For example, if an anvil and a pillow fall down, the pillow is going to be easier to keep balance in the pan, but the anvil might be more points. The player has to decide what they prioritize: more items but they're light, or fewer items but they're heavier.
 
 
 
@@ -50,7 +50,7 @@ The game will begin with the player in the middle of the plane. Then, the timer 
 
 ##### **Players**
 
-The game would be single player only, but if we were to add multiplayer, it would be in the form of one player driving the cart and one player rotating items to fit inside the cart.
+The game would be single player only, but if we were to add multiplayer, it would be in the form of one player moving the pan and one player rotating items to fit on the pan.
 
 
 
@@ -61,3 +61,10 @@ The game would be single player only, but if we were to add multiplayer, it woul
 * Balancing WASD with the arrow keys was wonky to control. Reworking some of the controls will help with this.
 * The pan's friction was too slippery, items fell off way too fast. Changing the friction coefficient on the pan should make item balancing more fair.
 * The pan takes up too much real estate on screen. Zooming out the camera to see more of the landscape should fix this.
+
+
+
+### **Sources Cited**
+
+
+
