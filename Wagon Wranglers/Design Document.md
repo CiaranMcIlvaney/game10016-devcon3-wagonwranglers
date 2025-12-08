@@ -64,7 +64,51 @@ The game would be single player only, but if we were to add multiplayer, it woul
 
 
 
+## **Physics Notes (By Olwyn)**
+
+All numbers provided were sourced from Google search, more specifically, Google’s AI Overview.
+
+
+
+Friction Coefficients and Numbers Used
+
+
+
+#### Cast Iron
+
+Friction coefficient was stated to be about 1.1, however to keep the gameplay a bit more interactive, I only put the friction on the pan to 0.5, as though there was some sort of lubricant
+
+
+
+#### Coin
+
+Friction coefficient stated to be between 0.3 and 0.7 for static friction, and so the friction was set to 0.7 as there was a planned setting to have multiple coins drop at once in the same place, so it would make it easier to catch multiple without reaching too far beyond reality
+
+
+
+#### Crown
+
+Friction coefficient for gold was stated at 0.2 to 0.3, however the drag settings in unity were set to 0.4 to make things a little easier with managing the angle and rotation of the player's frying pan
+
+
+
+#### Dice
+
+Friction coefficient was stated to be anywhere from 0.05 to over 1.0, with dry conditions increasing the friction coefficient. I opted to leave the drag levels at 0.7 due to the mass of the object as well as the apparent material, with plastic not being very slippery on cast iron
+
+
+
+#### Wood
+
+Friction coefficient has many variables for wood, ranging from 0.25-0.5 for wood-on-wood, and gets higher gradually with moisture. The friction for the crates in our game is set to 0.4, as it feels proper with the mass of the objects and fits well with the challenge of the game
+
+
+
+
+
 ### **Sources Cited**
+
+
 
 
 
